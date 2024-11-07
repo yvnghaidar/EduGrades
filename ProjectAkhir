@@ -1,0 +1,42 @@
+import java.util.Scanner;
+
+public class edugrades {
+    private static String[] namaMahasiswa = new String[100];
+    private static String[] nimMahasiswa = new String[100];
+    private static double[] nilaiMahasiswa = new double[100];
+    private static int jumlahMahasiswa = 0;
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int pilihan;
+
+        do {
+            System.out.println("\n===== SISTEM NILAI MAHASISWA =====");
+            System.out.println("1. Tambah Nilai Mahasiswa");
+            System.out.println("2. Lihat Daftar Nilai Mahasiswa");
+            System.out.println("3. Hitung Rata-rata Kelas");
+            System.out.println("4. Cari Nilai Mahasiswa");
+            System.out.println("5. Keluar");
+            System.out.print("Pilih menu: ");
+            pilihan = scanner.nextInt();
+            scanner.nextLine(); 
+
+            switch (pilihan) {
+                case 1:
+                    tambahNilaiMahasiswa(scanner);
+                    break;
+                case 2:
+                    lihatDaftarNilai();
+                    break;
+                case 3:
+                    hitungRataRataKelas();
+                    break;
+                case 4:
+                    cariNilaiMahasiswa(scanner);
+                    break;
+                case 5:
+                    System.out.println("Terima kasih telah menggunakan Sistem Nilai Mahasiswa.");
+                    break;
+                default:
+                    System.out.println("Pilihan tidak valid. Silakan coba lagi.");
+            }
