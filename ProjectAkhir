@@ -1,14 +1,13 @@
 import java.util.Scanner;
 
 public class edugrades {
-    private static String[] namaMahasiswa = new String[100];
-    private static String[] nimMahasiswa = new String[100];
-    private static double[] nilaiMahasiswa = new double[100];
-    private static int jumlahMahasiswa = 0;
-
+    public static String[] namamhswa = new String[100];
+    public static String[] nimmhswa = new String[100];
+    public static double[] nilaimhswa = new double[100];
+    public static int jumlah = 0;
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int pilihan;
+        Scanner hai = new Scanner(System.in);
+        int chose;
 
         do {
             System.out.println("\n===== SISTEM NILAI MAHASISWA =====");
@@ -18,12 +17,12 @@ public class edugrades {
             System.out.println("4. Cari Nilai Mahasiswa");
             System.out.println("5. Keluar");
             System.out.print("Pilih menu: ");
-            pilihan = scanner.nextInt();
-            scanner.nextLine(); 
+            chose = hai.nextInt();
+            hai.nextLine(); 
 
-            switch (pilihan) {
+            switch (chose) {
                 case 1:
-                    tambahNilaiMahasiswa(scanner);
+                    tambahNilaiMahasiswa(hai);
                     break;
                 case 2:
                     lihatDaftarNilai();
@@ -32,7 +31,7 @@ public class edugrades {
                     hitungRataRataKelas();
                     break;
                 case 4:
-                    cariNilaiMahasiswa(scanner);
+                    cariNilaiMahasiswa(hai);
                     break;
                 case 5:
                     System.out.println("Terima kasih telah menggunakan Sistem Nilai Mahasiswa.");
@@ -40,3 +39,69 @@ public class edugrades {
                 default:
                     System.out.println("Pilihan tidak valid. Silakan coba lagi.");
             }
+        } while (chose != 5);
+
+        hai.close();
+    }
+
+    public static void tambahNilaiMahasiswa(Scanner hai) {
+        if (jumlah < namamhswa.length) {
+            System.out.print("Masukkan Nama Mahasiswa: ");
+            String nama = hai.nextLine();
+            System.out.print("Masukkan NIM Mahasiswa: ");
+            String nim = hai.nextLine();
+            System.out.print("Masukkan Nilai Mahasiswa: ");
+            double nilai = hai.nextDouble();
+
+            namamhswa[jumlah] = nama;
+            nimmhswa[jumlah] = nim;
+            nilaimhswa[jumlah] = nilai;
+            jumlah++;
+
+            System.out.println("Nilai mahasiswa " + nama + " telah ditambahkan.");
+        } else {
+            System.out.println("Data penuh, tidak dapat menambah lebih banyak mahasiswa.");
+        }
+    }
+
+    public static void lihatDaftarNilai() {
+        System.out.println("\n===== DAFTAR NILAI MAHASISWA =====");
+        if (jumlah == 0) {
+            System.out.println("Tidak ada data mahasiswa yang terdaftar.");
+        } else {
+            for (int i = 0; i < jumlah; i++) {
+                System.out.println("Nama: " + namamhswa[i] + ", NIM: " + nimmhswa[i] + ", Nilai: " + nilaimhswa[i]);
+            }
+        }
+    }
+
+    public static void hitungRataRataKelas() {
+        if (jumlah == 0) {
+            System.out.println("Tidak ada data mahasiswa untuk dihitung.");
+        } else {
+            double totalNilai = 0;
+            for (int i = 0; i < jumlah; i++) {
+                totalNilai += nilaimhswa[i];
+            }
+            double rataRata = totalNilai / jumlah;
+            System.out.printf("Rata-rata nilai kelas: %.2f\n", rataRata);
+        }
+    }
+    public static void cariNilaiMahasiswa(Scanner hai) {
+        System.out.print("Masukkan Nama atau NIM Mahasiswa yang dicari: ");
+        String cari = hai.nextLine();
+        boolean ditemukan = false;
+
+        for (int i = 0; i < jumlah; i++) {
+            if (namamhswa[i].equalsIgnoreCase(cari) || nimmhswa[i].equalsIgnoreCase(cari)) {
+                System.out.println("Nama: " + namamhswa[i] + ", NIM: " + nimmhswa[i] + ", Nilai: " + nilaimhswa[i]);
+                ditemukan = true;
+                break;
+            }
+        }
+
+        if (!ditemukan) {
+            System.out.println("Mahasiswa dengan Nama atau NIM " + cari + " tidak ditemukan.");
+        }
+    }
+} 
